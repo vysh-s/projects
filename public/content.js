@@ -52,7 +52,79 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'showIntervention') {
     showInterventionOverlay(request);
   }
+  
+  if (request.action === 'showMorningBlocker') {
+    showMorningBlockerOverlay();
+  }
 });
+
+// Show morning blocker overlay
+function showMorningBlockerOverlay() {
+  // Remove existing overlay
+  const existing = document.getElementById('brainrot-buster-morning-overlay');
+  if (existing) existing.remove();
+  
+  const overlay = document.createElement('div');
+  overlay.id = 'brainrot-buster-morning-overlay';
+  overlay.innerHTML = `
+    <div class="brainrot-buster-morning-backdrop">
+      <div class="brainrot-buster-morning-modal">
+        <div class="brainrot-buster-morning-header">
+          <h2>🌅 Morning Vibe Check!</h2>
+          <div class="brainrot-buster-morning-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+        </div>
+        <div class="brainrot-buster-morning-content">
+          <div class="brainrot-buster-morning-message">
+            <p>Scrolling first thing? Time to touch grass! 🌱</p>
+          </div>
+          <div class="brainrot-buster-morning-stats">
+            <div class="brainrot-buster-morning-stat">
+              <div class="stat-value">Day 7</div>
+              <div class="stat-label">Morning streak 🔥</div>
+            </div>
+          </div>
+        </div>
+        <div class="brainrot-buster-morning-actions">
+          <button class="brainrot-buster-morning-quick">⚡ Quick Action</button>
+          <button class="brainrot-buster-morning-surprise">🎲 Surprise Me</button>
+          <button class="brainrot-buster-morning-bypass">📱 Let me scroll</button>
+        </div>
+        <div class="brainrot-buster-morning-notice">
+          ☕ Soft start mode: Just suggestions this week!
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  // Add event listeners
+  overlay.querySelector('.brainrot-buster-morning-quick').onclick = () => {
+    overlay.remove();
+    chrome.runtime.sendMessage({ 
+      action: 'dismissMorningBlocker', 
+      actionType: 'quickAction' 
+    });
+  };
+  
+  overlay.querySelector('.brainrot-buster-morning-surprise').onclick = () => {
+    overlay.remove();
+    chrome.runtime.sendMessage({ 
+      action: 'dismissMorningBlocker', 
+      actionType: 'surprise' 
+    });
+    // Open random surprise
+    window.open('https://inspirobot.me/', '_blank');
+  };
+  
+  overlay.querySelector('.brainrot-buster-morning-bypass').onclick = () => {
+    overlay.remove();
+    chrome.runtime.sendMessage({ 
+      action: 'dismissMorningBlocker', 
+      actionType: 'bypass' 
+    });
+  };
+}
 
 // Show intervention overlay
 function showInterventionOverlay(data) {

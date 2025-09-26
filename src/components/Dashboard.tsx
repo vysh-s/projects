@@ -32,11 +32,11 @@ export function Dashboard({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Current Session Status */}
-      <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 border border-pink-100 shadow-lg hover:shadow-xl transition-all">
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-pink-100 shadow-lg hover:shadow-xl transition-all">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-gray-800">Current Session 🎯</h2>
+          <h2 className="text-base sm:text-lg font-bold text-gray-800">Current Session 🎯</h2>
           <div className={`px-4 py-2 rounded-full text-sm font-bold shadow-sm ${
             isActive ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-700' : 'bg-gray-100 text-gray-600'
           }`}>
@@ -46,15 +46,15 @@ export function Dashboard({
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="text-4xl font-black bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">{formatTime(sessionTime)}</div>
+            <div className="text-2xl sm:text-4xl font-black bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">{formatTime(sessionTime)}</div>
             <div className="text-sm text-gray-600 font-medium">Session Time</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-black bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">{brainrotPercentage}%</div>
+            <div className="text-2xl sm:text-4xl font-black bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">{brainrotPercentage}%</div>
             <div className="text-sm text-gray-600 font-medium">Brainrot Detected</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-black bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">{sessionTime > 10 ? '🔥 ON' : '💤 OFF'}</div>
+            <div className="text-2xl sm:text-4xl font-black bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">{sessionTime > 10 ? '🔥 ON' : '💤 OFF'}</div>
             <div className="text-sm text-gray-600 font-medium">AI Detection</div>
           </div>
         </div>
@@ -93,46 +93,46 @@ export function Dashboard({
       </div>
 
       {/* Activity Chart */}
-      <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 border border-pink-100 shadow-lg hover:shadow-xl transition-all">
-        <h3 className="text-lg font-bold text-gray-800 mb-4">Weekly Brainrot Levels 📊</h3>
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-pink-100 shadow-lg hover:shadow-xl transition-all">
+        <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4">Weekly Brainrot Levels 📊</h3>
         <ActivityChart />
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 border border-pink-100 shadow-lg hover:shadow-xl transition-all">
-        <h3 className="text-lg font-bold text-gray-800 mb-4">Quick Actions ⚡</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <button className="p-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-2xl hover:from-pink-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg">
-            <div className="text-sm font-bold">🧪 Test Intervention</div>
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-pink-100 shadow-lg hover:shadow-xl transition-all">
+        <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4">Quick Actions ⚡</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <button className="p-3 sm:p-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl sm:rounded-2xl hover:from-pink-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg">
+            <div className="text-xs sm:text-sm font-bold">🧪 Test Intervention</div>
             <div className="text-xs opacity-90 mt-1">See the magic in action</div>
           </button>
-          <button className="p-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-2xl hover:from-yellow-600 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg">
-            <div className="text-sm font-bold">☀️ Test Morning Block</div>
+          <button className="p-3 sm:p-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl sm:rounded-2xl hover:from-yellow-600 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg">
+            <div className="text-xs sm:text-sm font-bold">☀️ Auto Morning Block</div>
             <div className="text-xs opacity-90 mt-1">Preview morning popup</div>
           </button>
-          <button className="p-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-2xl hover:from-green-600 hover:to-teal-600 transition-all transform hover:scale-105 shadow-lg">
-            <div className="text-sm font-bold">📚 Reading List</div>
+          <button className="p-3 sm:p-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl sm:rounded-2xl hover:from-green-600 hover:to-teal-600 transition-all transform hover:scale-105 shadow-lg">
+            <div className="text-xs sm:text-sm font-bold">📚 Reading List</div>
             <div className="text-xs opacity-90 mt-1">Level up your brain</div>
           </button>
-          <button className="p-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl hover:from-orange-600 hover:to-red-600 transition-all transform hover:scale-105 shadow-lg">
-            <div className="text-sm font-bold">🎯 Focus Mode</div>
+          <button className="p-3 sm:p-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl sm:rounded-2xl hover:from-orange-600 hover:to-red-600 transition-all transform hover:scale-105 shadow-lg">
+            <div className="text-xs sm:text-sm font-bold">🎯 Focus Mode</div>
             <div className="text-xs opacity-90 mt-1">Block the noise</div>
           </button>
         </div>
         
-        {/* Morning Stats */}
+        {/* Auto Morning Blocker Stats */}
         <div className="mt-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl p-4 border border-yellow-100">
           <div className="flex items-center justify-between">
             <div>
               <div className="font-bold text-gray-800 flex items-center">
                 <Sun className="w-5 h-5 mr-2 text-yellow-500" />
-                Morning Hero Streak
+                Auto Morning Blocker
               </div>
-              <div className="text-sm text-gray-600 font-medium">7 days of mindful mornings! 🔥</div>
+              <div className="text-sm text-gray-600 font-medium">Triggers after 4+ hours of device inactivity 🤖</div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-black text-yellow-600">7</div>
-              <div className="text-xs text-gray-500">days</div>
+              <div className="text-lg sm:text-2xl font-black text-yellow-600">ON</div>
+              <div className="text-xs text-gray-500">active</div>
             </div>
           </div>
         </div>
