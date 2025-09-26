@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brainrot Buster Settings</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f3e8ff, #e0e7ff, #e0f2fe);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .header h1 {
+      color: #1F2937;
+      margin-bottom: 8px;
+    }
+    
+    .settings-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+    }
+    
+    .setting-group {
+      margin-bottom: 24px;
+    }
+    
+    .setting-label {
+      display: block;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+    
+    .setting-description {
+      font-size: 14px;
+      color: #6B7280;
+      margin-bottom: 12px;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #E5E7EB;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #8B5CF6;
+      cursor: pointer;
+    }
+    
+    .range-value {
+      text-align: right;
+      font-weight: 500;
+      color: #8B5CF6;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: #8B5CF6;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    
+    .save-button {
+      background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+    .save-button:hover {
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧠 Brainrot Buster Settings</h1>
+      <p>Customize your mindful scrolling experience</p>
+    </div>
+    
+    <div class="settings-card">
+      <h3>Detection Settings</h3>
+      
+      <div class="setting-group">
+        <label class="setting-label">Detection Threshold</label>
+        <div class="setting-description">Start monitoring after this many minutes of scrolling</div>
+        <input type="range" id="detectionThreshold" min="5" max="30" value="10">
+        <div class="range-value" id="detectionValue">10 minutes</div>
+      </div>
+      
+      <div class="setting-group">
+        <label class="setting-label">Brainrot Threshold</label>
+        <div class="setting-description">Trigger interventions when this % of content is brainrot</div>
+        <input type="range" id="brainrotThreshold" min="50" max="90" value="70">
+        <div class="range-value" id="brainrotValue">70%</div>
+      </div>
+    </div>
+    
+    <div class="settings-card">
+      <h3>Intervention Settings</h3>
+      
+      <div class="setting-group">
+        <label class="setting-label">Intervention Frequency</label>
+        <div class="setting-description">How often should we interrupt your scrolling?</div>
+        <select id="interventionFreq" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #D1D5DB;">
+          <option value="gentle">Gentle (fewer interruptions)</option>
+          <option value="balanced" selected>Balanced</option>
+          <option value="aggressive">Aggressive (more interruptions)</option>
+        </select>
+      </div>
+      
+      <div class="setting-group">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <label class="setting-label">Mindfulness Mode</label>
+            <div class="setting-description">Enable grayscale during interventions</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="mindfulnessMode">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="settings-card">
+      <h3>Privacy & Data</h3>
+      
+      <div class="setting-group">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <label class="setting-label">Usage Analytics</label>
+            <div class="setting-description">Anonymous usage data to improve the extension</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="analytics">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="setting-group">
+        <div style="padding: 12px; background: #F0FDF4; border-radius: 8px; border-left: 4px solid #10B981;">
+          <strong>🔒 Privacy First:</strong> All content analysis happens on your device. No personal data leaves your browser.
+        </div>
+      </div>
+    </div>
+    
+    <button class="save-button" onclick="saveSettings()">Save Settings</button>
+  </div>
+  
+  <script>
+    // Load settings on page load
+    document.addEventListener('DOMContentLoaded', loadSettings);
+    
+    // Update range value displays
+    document.getElementById('detectionThreshold').oninput = function() {
+      document.getElementById('detectionValue').textContent = this.value + ' minutes';
+    };
+    
+    document.getElementById('brainrotThreshold').oninput = function() {
+      document.getElementById('brainrotValue').textContent = this.value + '%';
+    };
+    
+    function loadSettings() {
+      chrome.storage.sync.get([
+        'detectionThreshold',
+        'brainrotThreshold', 
+        'interventionFreq',
+        'mindfulnessMode',
+        'analytics'
+      ], function(result) {
+        document.getElementById('detectionThreshold').value = result.detectionThreshold || 10;
+        document.getElementById('brainrotThreshold').value = result.brainrotThreshold || 70;
+        document.getElementById('interventionFreq').value = result.interventionFreq || 'balanced';
+        document.getElementById('mindfulnessMode').checked = result.mindfulnessMode || false;
+        document.getElementById('analytics').checked = result.analytics || false;
+        
+        // Update displays
+        document.getElementById('detectionValue').textContent = (result.detectionThreshold || 10) + ' minutes';
+        document.getElementById('brainrotValue').textContent = (result.brainrotThreshold || 70) + '%';
+      });
+    }
+    
+    function saveSettings() {
+      const settings = {
+        detectionThreshold: document.getElementById('detectionThreshold').value,
+        brainrotThreshold: document.getElementById('brainrotThreshold').value,
+        interventionFreq: document.getElementById('interventionFreq').value,
+        mindfulnessMode: document.getElementById('mindfulnessMode').checked,
+        analytics: document.getElementById('analytics').checked
+      };
+      
+      chrome.storage.sync.set(settings, function() {
+        // Show success message
+        const button = document.querySelector('.save-button');
+        const originalText = button.textContent;
+        button.textContent = '✓ Settings Saved!';
+        button.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = 'linear-gradient(135deg, #8B5CF6, #3B82F6)';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

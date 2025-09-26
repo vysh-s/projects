@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brainrot Buster</title>
+  <style>
+    body {
+      width: 350px;
+      height: 500px;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f3e8ff, #e0e7ff, #e0f2fe);
+    }
+    
+    .popup-container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .popup-header {
+      background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .popup-header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .popup-content {
+      padding: 20px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .stat-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+    }
+    
+    .stat-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #8B5CF6;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      color: #6B7280;
+      margin-top: 4px;
+    }
+    
+    .action-button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: transform 0.2s;
+    }
+    
+    .action-button:hover {
+      transform: translateY(-1px);
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 0;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .status-active {
+      background: #10B981;
+    }
+    
+    .status-inactive {
+      background: #6B7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-container">
+    <div class="popup-header">
+      <h1>🧠 Brainrot Buster</h1>
+    </div>
+    
+    <div class="popup-content">
+      <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Loading...</span>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-value" id="sessionTime">0m</div>
+        <div class="stat-label">Current Session</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-value" id="brainrotPercentage">0%</div>
+        <div class="stat-label">Brainrot Content</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-value" id="userPoints">1,250</div>
+        <div class="stat-label">Total Points</div>
+      </div>
+      
+      <button class="action-button" onclick="openDashboard()">
+        Open Full Dashboard
+      </button>
+      
+      <button class="action-button" onclick="triggerIntervention()">
+        Test Intervention
+      </button>
+      
+      <button class="action-button" onclick="openSettings()">
+        Settings
+      </button>
+    </div>
+  </div>
+  
+  <script>
+    // Update popup with current session data
+    function updatePopup() {
+      chrome.runtime.sendMessage({ action: 'getSessionData' }, (response) => {
+        if (response) {
+          const sessionMinutes = response.isActive ? 
+            Math.floor((Date.now() - response.startTime) / 1000 / 60) : 0;
+          
+          document.getElementById('sessionTime').textContent = sessionMinutes + 'm';
+          document.getElementById('brainrotPercentage').textContent = 
+            Math.round((response.brainrotCount / Math.max(response.contentAnalyzed, 1)) * 100) + '%';
+          
+          const statusDot = document.getElementById('statusDot');
+          const statusText = document.getElementById('statusText');
+          
+          if (response.isActive) {
+            statusDot.className = 'status-dot status-active';
+            statusText.textContent = 'Monitoring Active';
+          } else {
+            statusDot.className = 'status-dot status-inactive';
+            statusText.textContent = 'Inactive';
+          }
+        }
+      });
+    }
+    
+    function openDashboard() {
+      chrome.tabs.create({ url: chrome.runtime.getURL('index.html') });
+    }
+    
+    function triggerIntervention() {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          action: 'showIntervention',
+          sessionLength: 15,
+          brainrotPercentage: 80
+        });
+      });
+      window.close();
+    }
+    
+    function openSettings() {
+      chrome.runtime.openOptionsPage();
+    }
+    
+    // Update popup when opened
+    document.addEventListener('DOMContentLoaded', updatePopup);
+    setInterval(updatePopup, 5000); // Update every 5 seconds
+  </script>
+</body>
+</html>
