@@ -2,7 +2,7 @@ import React from 'react';
 import { StatsCard } from './StatsCard';
 import { ActivityChart } from './ActivityChart';
 import { Settings } from './Settings';
-import { Clock, TrendingUp, Target, Zap } from 'lucide-react';
+import { Clock, TrendingUp, Target, Zap, Sun } from 'lucide-react';
 
 interface DashboardProps {
   currentView: 'dashboard' | 'settings';
